@@ -1,0 +1,47 @@
+# -*- Makefile -*-
+
+# Makefile for compiling with avra
+# (without temperarture-correction)
+
+include Makefile.settings
+
+TARGET = thermocouple
+
+OPTS = -D F_CPU=$(F_CPU) -D USE_MAX31855_CONFIG
+SRC =  $(TARGET).asm devicedef.inc ssegment.asm
+
+ifeq ($(USE_SSEG), yes)
+OPTS += -D USE_SSEG
+endif
+
+ifeq ($(USE_USART), yes)
+OPTS += -D USE_USART -D USART_BAUD=$(USART_BAUD)
+endif
+
+# ------------------------------------------------------------
+AS = avra
+ASFLAGS = -I $(AVRLIBDIR) $(OPTS)
+
+all: $(TARGET).hex
+
+$(TARGET).hex: $(SRC)
+
+devicedef.inc: Makefile
+	echo ".include \"${INCDEVICE}def.inc\"" > $@
+
+.asm.hex:
+	$(AS) $(ASFLAGS) $<
+
+# ------------------------------------------------------------
+.SUFFIXES: .asm .hex
+
+flash: $(TARGET).hex
+	$(AVRDUDE) -c $(AVRWRITER) -p $(DEVICE) -b $(AVRDUDEBAUDRATE) -e -U flash:w:$<
+
+clean:
+	rm -f *.o *.obj *.eep.hex
+
+distclean: clean
+	rm -f $(TARGET).hex $(TARGET) devicedef.inc
+
+max31855.o: max31855.asm max31855-config.h

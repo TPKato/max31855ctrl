@@ -1,0 +1,6 @@
+[submodule "nist-its90"]
+	path = nist-its90
+	url = https://github.com/TPKato/nist-its90.git
+[submodule "pAVRlib"]
+	path = pAVRlib
+	url = https://github.com/TPKato/pAVRlib.git

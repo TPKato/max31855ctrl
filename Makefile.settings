@@ -1,0 +1,20 @@
+# -*- Makefile -*-
+
+DEVICE = atmega328p
+
+# only for AVRA
+INCDEVICE = m328P
+
+F_CPU = 1000000
+USART_BAUD = 4800
+
+NISTLIBDIR = nist-its90
+AVRLIBDIR = pAVRlib
+
+AVRDUDE = avrdude
+AVRWRITER = sparkfun
+AVRDUDEBAUDRATE = 2400
+
+USE_SSEG = yes
+USE_USART = yes
+USE_TCCORRECTION = yes

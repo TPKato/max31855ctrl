@@ -1,0 +1,3 @@
+* Thermometer (MAX31855 Controller) using AVR
+
+Visit [[https://www.chinpui.org/hack/basteln/max31855ctrl/]] for more details.
